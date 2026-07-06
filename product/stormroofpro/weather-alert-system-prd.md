@@ -65,12 +65,18 @@ where hail fell).
 
 ### 4.1 Real-time storm alerts (Phase 1)
 - Ingest **NWS watches/warnings** (severe thunderstorm, tornado) with their
-  polygon geometries and parsed max-hail-size parameter.
-- Users define one or more **service areas** (draw radius/polygon or pick
-  counties). Alerts fire when a warning polygon intersects a service area.
+  polygon geometries and parsed **max hail size and max wind gust**
+  parameters. High wind and hail are both first-class alert triggers.
+- Users define one or more **service areas** — default is a **100-mile
+  radius** around the company's home base; polygon/county selection later.
+  Alerts fire when a warning polygon intersects a service area.
 - Delivery: **push notification** (primary), **SMS** (user opt-in),
-  **email** (digest fallback). Per-user quiet hours and minimum-hail-size
-  threshold (e.g., only alert ≥ 1").
+  **email** (digest fallback). Per-user quiet hours plus minimum hail-size
+  (default ≥ 1") and wind-gust (default ≥ 58 mph, the NWS severe criterion)
+  thresholds. Tornado warnings always alert.
+- **Ground-truth damage reports**: ingest NWS Local Storm Reports / SPC
+  reports (measured hail size in inches, wind gusts in mph, location, time)
+  into the Storm Center feed alongside warnings — "what actually fell."
 - In-app **Storm Center feed**: live list of active warnings in service
   areas with hail size, wind, storm motion, and a map view.
 
@@ -212,9 +218,9 @@ season left in MI/MN, which is tight but exactly when roofers feel the pain.
 
 1. Brand name (StormRoofer Pro vs StormGuard Pro) — blocks notification
    sender IDs, SMS registration, and app-store listings. Decide first.
-2. Is this feature included in all plans or a premium tier? (Recommendation:
-   include alerts in all plans as the activation hook; gate historical
-   lookup + canvass lists behind the paid tier.)
+2. ~~Is this feature included in all plans or a premium tier?~~
+   **Decided (Jul 6):** alerts included in all paid plans; historical
+   lookup + canvass lists reserved for a higher tier.
 3. Mobile push today: does the current app have push infrastructure, or is
    the product web-only right now? Determines whether Phase 1 leads with
    SMS instead of push.

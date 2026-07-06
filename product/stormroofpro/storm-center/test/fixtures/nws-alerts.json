@@ -1,0 +1,68 @@
+{
+  "features": [
+    {
+      "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.abc123",
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-85.9, 42.8], [-85.4, 42.8], [-85.4, 43.1], [-85.9, 43.1], [-85.9, 42.8]]]
+      },
+      "properties": {
+        "id": "urn:oid:2.49.0.1.840.0.abc123",
+        "event": "Severe Thunderstorm Warning",
+        "messageType": "Alert",
+        "severity": "Severe",
+        "headline": "Severe Thunderstorm Warning issued for Kent County, MI",
+        "areaDesc": "Kent County, MI",
+        "onset": "2026-07-06T21:15:00-04:00",
+        "expires": "2026-07-06T22:00:00-04:00",
+        "description": "At 915 PM EDT, a severe thunderstorm was located near Grand Rapids, moving east at 35 mph. HAZARD...Golf ball size hail and 70 mph wind gusts.",
+        "parameters": {
+          "maxHailSize": ["1.75"],
+          "maxWindGust": ["70 MPH"],
+          "hailThreat": ["RADAR INDICATED"],
+          "windThreat": ["RADAR INDICATED"]
+        }
+      }
+    },
+    {
+      "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.def456",
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "id": "urn:oid:2.49.0.1.840.0.def456",
+        "event": "Severe Thunderstorm Watch",
+        "messageType": "Alert",
+        "severity": "Severe",
+        "headline": "Severe Thunderstorm Watch issued for portions of Minnesota",
+        "areaDesc": "Hennepin, MN; Ramsey, MN",
+        "onset": "2026-07-06T19:00:00-05:00",
+        "expires": "2026-07-07T01:00:00-05:00",
+        "description": "Scattered severe storms with large hail up to 2 inches and wind gusts to 75 mph possible.",
+        "parameters": {}
+      }
+    },
+    {
+      "id": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ghi789",
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-93.5, 44.8], [-93.0, 44.8], [-93.0, 45.1], [-93.5, 45.1], [-93.5, 44.8]]]
+      },
+      "properties": {
+        "id": "urn:oid:2.49.0.1.840.0.ghi789",
+        "event": "Tornado Warning",
+        "messageType": "Alert",
+        "severity": "Extreme",
+        "headline": "Tornado Warning issued for Hennepin County, MN",
+        "areaDesc": "Hennepin County, MN",
+        "onset": "2026-07-06T20:30:00-05:00",
+        "expires": "2026-07-06T21:00:00-05:00",
+        "description": "At 830 PM CDT, a severe thunderstorm capable of producing a tornado was located over Minneapolis.",
+        "parameters": {
+          "tornadoDetection": ["RADAR INDICATED"]
+        }
+      }
+    }
+  ]
+}

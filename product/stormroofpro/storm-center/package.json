@@ -1,0 +1,17 @@
+{
+  "name": "storm-center-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "StormRoofer Pro Storm Center — NWS alert ingestion, service-area matching, and notifications (Phase 1)",
+  "scripts": {
+    "start": "node src/worker.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
