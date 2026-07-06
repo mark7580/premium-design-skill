@@ -216,14 +216,17 @@ season left in MI/MN, which is tight but exactly when roofers feel the pain.
 
 ## 9. Open questions
 
-1. Brand name (StormRoofer Pro vs StormGuard Pro) — blocks notification
-   sender IDs, SMS registration, and app-store listings. Decide first.
+1. ~~Brand name (StormRoofer Pro vs StormGuard Pro)~~ **Decided (Jul 6):
+   Storm Roofer Pro.** Site copy, email domain, and SMS sender registration
+   should all consolidate on this. (GitHub repo is named `stormguard-pro`;
+   repo name can stay.)
 2. ~~Is this feature included in all plans or a premium tier?~~
    **Decided (Jul 6):** alerts included in all paid plans; historical
    lookup + canvass lists reserved for a higher tier.
-3. Mobile push today: does the current app have push infrastructure, or is
-   the product web-only right now? Determines whether Phase 1 leads with
-   SMS instead of push.
+3. ~~Mobile push today?~~ **Decided (Jul 6): the product is web-only; the
+   plan is to make it an installable PWA.** Phase 1 alerts therefore use
+   **Web Push** (works on installed PWAs on Android and on iOS 16.4+) with
+   SMS as the reliability backstop for critical warnings.
 4. Who owns weather-data QA during the season (spot-checking swaths vs
    reports)? Cheap to do weekly; expensive to skip.
 
