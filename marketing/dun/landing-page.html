@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DUN — Skip the searching. Skip the phone calls. Get it DUN.</title>
+<meta name="description" content="Post what you need once — verified local providers respond to you. Check their real Google and Facebook reviews, message them, and set it up, all without leaving DUN.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #101418;
+    --ink-soft: #4b5563;
+    --paper: #ffffff;
+    --paper-alt: #f6f7f9;
+    --accent: #ea580c;
+    --accent-dark: #c2410c;
+    --dark: #101418;
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 88px 0; }
+
+  /* Nav */
+  nav { padding: 20px 0; border-bottom: 1px solid #eceef1; }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-weight: 900; font-size: 26px; letter-spacing: -0.5px; }
+  .logo span { color: var(--accent); }
+  nav a.btn-sm {
+    font-size: 14px; font-weight: 600; text-decoration: none;
+    color: #fff; background: var(--ink); padding: 10px 18px; border-radius: 999px;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-block; text-decoration: none; font-weight: 700; font-size: 16px;
+    padding: 15px 28px; border-radius: 999px; transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 6px 18px rgba(234,88,12,.28); }
+  .btn-primary:hover { background: var(--accent-dark); }
+  .btn-secondary { background: #fff; color: var(--ink); border: 2px solid var(--ink); }
+  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .eyebrow {
+    font-size: 13px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(38px, 6vw, 62px); font-weight: 900; line-height: 1.05;
+    letter-spacing: -1.5px; margin-bottom: 22px;
+  }
+  h2 {
+    font-size: clamp(28px, 4vw, 40px); font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.8px; margin-bottom: 16px;
+  }
+  .lede { font-size: 19px; color: var(--ink-soft); max-width: 640px; }
+  .punch { font-weight: 800; font-size: 19px; margin-top: 22px; }
+  .punch.accent { color: var(--accent); }
+
+  /* Hero */
+  .hero { padding: 110px 0 100px; text-align: center; }
+  .hero .lede { margin: 0 auto 34px; }
+  .hero .btn-row { justify-content: center; }
+  .hero .eyebrow { margin-bottom: 22px; }
+
+  .alt { background: var(--paper-alt); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  @media (max-width: 760px) { .two-col { grid-template-columns: 1fr; gap: 28px; } }
+
+  /* Steps strip */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 44px; }
+  @media (max-width: 860px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+  .step {
+    background: #fff; border: 1px solid #e7e9ee; border-radius: var(--radius);
+    padding: 26px 22px;
+  }
+  .step .num {
+    width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #fff;
+    font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .step h3 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+  .step p { font-size: 15px; color: var(--ink-soft); }
+
+  /* Old-way list */
+  .oldway { list-style: none; margin: 26px 0; }
+  .oldway li {
+    padding: 10px 0 10px 34px; position: relative; color: var(--ink-soft); font-size: 16.5px;
+    border-bottom: 1px dashed #e2e5ea;
+  }
+  .oldway li::before { content: "✕"; position: absolute; left: 4px; color: #c4c9d1; font-weight: 700; }
+
+  /* Review chips */
+  .chips { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .chip {
+    background: #fff; border: 1px solid #e7e9ee; border-radius: 999px;
+    padding: 10px 18px; font-size: 14.5px; font-weight: 600; color: var(--ink);
+  }
+  .chip .star { color: #f59e0b; }
+
+  /* Provider (dark) */
+  .provider { background: var(--dark); color: #fff; }
+  .provider h2, .provider .punch { color: #fff; }
+  .provider .lede { color: #b9c0ca; }
+  .provider .eyebrow { color: #fda06a; }
+
+  /* Flywheel */
+  .flywheel p.chain { font-size: 20px; font-weight: 600; line-height: 1.8; max-width: 620px; }
+  .flywheel p.chain b { color: var(--accent); }
+
+  /* Closing */
+  .closing { background: var(--accent); color: #fff; text-align: center; padding: 100px 0; }
+  .closing h2 { color: #fff; font-size: clamp(32px, 5vw, 52px); }
+  .closing .lede { color: #ffe4d3; margin: 0 auto 30px; }
+  .closing .tag { font-weight: 900; font-size: 22px; margin-bottom: 30px; letter-spacing: -0.3px; }
+  .closing .btn { background: #fff; color: var(--accent-dark); }
+
+  footer { padding: 34px 0; font-size: 13.5px; color: #9aa1ab; text-align: center; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">DU<span>N</span></div>
+    <a class="btn-sm" href="#join">Join DUN</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Build It Together</div>
+    <h1>Skip the searching.<br>Skip the phone calls.<br>Get it DUN.</h1>
+    <p class="lede">Post what you need once — verified local providers respond to you. Check out their real reviews from Google and Facebook, message them, and set it up, all without leaving DUN.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="#join">Post Your Project</a>
+      <a class="btn btn-secondary" href="#provider">Join as a Provider</a>
+    </div>
+  </div>
+</header>
+
+<section class="alt">
+  <div class="wrap two-col">
+    <div>
+      <h2>Post it once. Let providers come to you.</h2>
+      <p class="lede">Describe your project, add a photo or two, and send it out. Instead of you calling around, verified service providers in your area see your request and respond — with their answers, their availability, and their interest in your job.</p>
+      <p class="punch accent">One post instead of ten phone calls.</p>
+    </div>
+    <div>
+      <h2>Know who you're talking to — without the tab-juggling</h2>
+      <p class="lede">Every provider on DUN is verified, and their reputation comes with them. Check a provider's Google Business page, Facebook page, and real customer reviews right from DUN — no cherry-picked testimonials, no bouncing between six browser tabs.</p>
+      <div class="chips">
+        <div class="chip"><span class="star">★</span> Google reviews</div>
+        <div class="chip"><span class="star">★</span> Facebook reviews</div>
+        <div class="chip">✓ Verified provider</div>
+      </div>
+      <p class="punch">Real reviews from around the web. One place to see them.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>One platform instead of eight steps</h2>
+    <p class="lede">Today, getting something done means:</p>
+    <ul class="oldway">
+      <li>Searching Google</li>
+      <li>Opening five business websites</li>
+      <li>Reading scattered reviews</li>
+      <li>Calling around and leaving voicemails</li>
+      <li>Waiting for callbacks</li>
+      <li>Going back and forth about availability</li>
+      <li>Trying to remember who said what</li>
+    </ul>
+    <p class="lede">DUN replaces all of it: post your project, hear from verified providers, check their reviews, and handle the whole conversation in one organized place.</p>
+    <p class="punch accent">Less searching. Less calling. Less waiting.</p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>From “I need this” to “it's done”</h2>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3>Post</h3><p>Describe your project once.</p></div>
+      <div class="step"><div class="num">2</div><h3>Hear back</h3><p>Verified providers respond to you.</p></div>
+      <div class="step"><div class="num">3</div><h3>Check them out</h3><p>Real Google and Facebook reviews, right in DUN.</p></div>
+      <div class="step"><div class="num">4</div><h3>Get it DUN</h3><p>Message, agree on the details, and move forward in one conversation.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="provider" id="provider">
+  <div class="wrap">
+    <div class="eyebrow">For Service Providers</div>
+    <h2>Your reputation is your next opportunity</h2>
+    <p class="lede">You've spent years earning those Google and Facebook reviews — on DUN, they work for you from day one. No starting from zero on another platform. See local project requests as they're posted, respond to the ones you want, and manage every conversation from one inbox instead of missed calls and voicemails.</p>
+    <p class="punch">Spend less time chasing leads. Spend more time doing the work that grows your business.</p>
+    <div class="btn-row" style="margin-top: 26px;">
+      <a class="btn btn-primary" href="#join">Join as a Provider</a>
+    </div>
+  </div>
+</section>
+
+<section class="flywheel">
+  <div class="wrap">
+    <h2>When DUN grows, everyone moves forward</h2>
+    <p class="chain">More people bring <b>more projects</b>. More projects bring <b>more providers</b>. More providers mean <b>faster answers</b> for everyone.</p>
+    <p class="lede" style="margin-top: 18px;">Share DUN and you can earn chances at free services and giveaways; providers who spread the word can unlock extra exposure for their business.</p>
+    <p class="punch">We don't just use DUN. We build it together.</p>
+  </div>
+</section>
+
+<section class="closing" id="join">
+  <div class="wrap">
+    <h2>Stop searching. Start doing.</h2>
+    <p class="lede">One place to post your project, hear from verified providers, check their real reviews, and get it moving.</p>
+    <p class="tag">Build It Together. Get It DUN.</p>
+    <a class="btn" href="#">Join DUN</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 DUN · Build It Together</div>
+</footer>
+
+</body>
+</html>
