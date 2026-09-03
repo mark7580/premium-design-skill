@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DUN — Skip the searching. Get it DUN.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,700;0,900;1,400;1,900&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#101318; --dim:#5c6470; --blue:#2E7CF6; --paper:#FCFCFB; --line:#e6e6e2; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Inter',-apple-system,sans-serif; background:var(--paper); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1140px; margin:0 auto; padding:0 32px; }
+
+  nav { padding:26px 0; }
+  nav .wrap { display:flex; justify-content:space-between; align-items:center; }
+  .logo { font-weight:900; font-size:22px; letter-spacing:-.5px; }
+  .logo i { font-style:italic; color:var(--blue); }
+  nav a { font-size:14px; font-weight:600; color:var(--ink); text-decoration:none; border-bottom:2px solid var(--ink); padding-bottom:2px; transition:.2s; }
+  nav a:hover { color:var(--blue); border-color:var(--blue); }
+
+  .hero { padding:120px 0 100px; border-bottom:1px solid var(--line); }
+  .kicker { font-size:12.5px; font-weight:700; letter-spacing:.28em; text-transform:uppercase; color:var(--dim); margin-bottom:36px; }
+  h1 { font-size:clamp(52px,9vw,118px); font-weight:900; line-height:.98; letter-spacing:-4px; }
+  h1 .thin { display:block; font-weight:400; font-style:italic; letter-spacing:-2px; color:var(--dim); font-size:.52em; margin-top:20px; }
+  h1 em { font-style:italic; color:var(--blue); }
+  .hero-foot { display:flex; justify-content:space-between; align-items:flex-end; margin-top:64px; gap:40px; flex-wrap:wrap; }
+  .hero-foot p { max-width:420px; font-size:17px; color:var(--dim); }
+  .btn { display:inline-block; text-decoration:none; font-weight:700; font-size:15.5px; padding:16px 32px; border-radius:2px; transition:.2s; }
+  .btn-ink { background:var(--ink); color:#fff; }
+  .btn-ink:hover { background:var(--blue); }
+  .btn-line { color:var(--ink); border:1.5px solid var(--ink); margin-left:10px; }
+  .btn-line:hover { border-color:var(--blue); color:var(--blue); }
+
+  /* numbered editorial rows */
+  .row { display:grid; grid-template-columns:120px 1fr 1.1fr; gap:48px; padding:84px 0; border-bottom:1px solid var(--line); align-items:start; }
+  @media (max-width:860px){ .row { grid-template-columns:1fr; gap:18px; padding:60px 0; } }
+  .row .num { font-size:15px; font-weight:900; color:var(--blue); letter-spacing:.1em; padding-top:10px; }
+  .row h2 { font-size:clamp(30px,4.4vw,48px); font-weight:900; letter-spacing:-1.8px; line-height:1.04; }
+  .row h2 em { font-style:italic; font-weight:400; }
+  .row .body p { font-size:17.5px; color:var(--dim); margin-bottom:16px; }
+  .row .body .pull { font-size:20px; font-weight:700; color:var(--ink); font-style:italic; border-left:3px solid var(--blue); padding-left:18px; margin-top:24px; }
+
+  .strike-list { list-style:none; margin:8px 0 0; }
+  .strike-list li { font-size:16.5px; color:#a8adb5; padding:9px 0; border-bottom:1px dashed var(--line); position:relative; }
+  .strike-list li s { text-decoration-color:rgba(46,124,246,.6); text-decoration-thickness:2px; }
+
+  /* oversized quote band */
+  .quote { padding:130px 0; text-align:center; border-bottom:1px solid var(--line); background:#fff; }
+  .quote p { font-size:clamp(30px,5vw,54px); font-weight:900; letter-spacing:-2px; line-height:1.12; max-width:900px; margin:0 auto; }
+  .quote p em { font-style:italic; color:var(--blue); font-weight:400; }
+
+  /* provider split */
+  .provider { padding:110px 0; border-bottom:1px solid var(--line); }
+  .provider .inner { display:grid; grid-template-columns:1.2fr .8fr; gap:64px; align-items:center; }
+  @media (max-width:860px){ .provider .inner { grid-template-columns:1fr; } }
+  .provider h2 { font-size:clamp(34px,5vw,56px); font-weight:900; letter-spacing:-2px; line-height:1.02; margin-bottom:22px; }
+  .provider p { font-size:17.5px; color:var(--dim); margin-bottom:16px; }
+  .review-card { border:1px solid var(--line); background:#fff; padding:28px; box-shadow:16px 16px 0 #f0f0ec; }
+  .review-card .stars { color:#f5a623; font-size:18px; letter-spacing:2px; margin-bottom:10px; }
+  .review-card .who { display:flex; align-items:center; gap:12px; margin-top:18px; padding-top:16px; border-top:1px solid var(--line); }
+  .review-card .avatar { width:38px; height:38px; border-radius:50%; background:var(--blue); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .review-card .who .nm { font-weight:700; font-size:14.5px; }
+  .review-card .who .src { font-size:12.5px; color:var(--dim); }
+  .review-card p.txt { font-size:15.5px; color:var(--ink); margin:0; }
+
+  .closing { padding:150px 0 160px; text-align:center; background:var(--ink); color:#fff; }
+  .closing .kicker { color:#9aa3b2; }
+  .closing h2 { font-size:clamp(44px,8vw,96px); font-weight:900; letter-spacing:-3.5px; line-height:1; margin-bottom:26px; }
+  .closing h2 em { font-style:italic; color:var(--blue); }
+  .closing p { color:#9aa3b2; font-size:18px; margin-bottom:40px; }
+  .closing .btn-ink { background:var(--blue); }
+  .closing .btn-ink:hover { background:#fff; color:var(--ink); }
+
+  footer { padding:32px 0; font-size:13px; color:var(--dim); }
+  footer .wrap { display:flex; justify-content:space-between; }
+
+  .rv { opacity:0; transform:translateY(26px); transition:opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+  .rv.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){ .rv { opacity:1; transform:none; } }
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="logo">DUN<i>.</i></div>
+  <a href="#join">Join DUN</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="kicker rv in">Build It Together</div>
+  <h1 class="rv in">Skip the searching.<br>Skip the calls.<br><em>Get it DUN.</em>
+    <span class="thin">The simpler way to get things done.</span>
+  </h1>
+  <div class="hero-foot rv in">
+    <p>Post what you need once — verified local providers respond to you. Check their real Google and Facebook reviews, message them, and set it up, all in one place.</p>
+    <div>
+      <a class="btn btn-ink" href="#join">Post Your Project</a>
+      <a class="btn btn-line" href="#provider">For Providers</a>
+    </div>
+  </div>
+</div></header>
+
+<section class="row wrap rv">
+  <div class="num">01</div>
+  <h2>Post it once.<br><em>Providers come to you.</em></h2>
+  <div class="body">
+    <p>Describe your project, add a photo or two, and send it out. Instead of you calling around, verified service providers in your area see your request and respond — with their answers, their availability, and their interest in your job.</p>
+    <p class="pull">One post instead of ten phone calls.</p>
+  </div>
+</section>
+
+<section class="row wrap rv">
+  <div class="num">02</div>
+  <h2>Know exactly<br><em>who you're hiring.</em></h2>
+  <div class="body">
+    <p>Every provider on DUN is verified, and their reputation comes with them — their Google Business page, Facebook page, and real customer reviews, visible right from DUN. No cherry-picked testimonials. No six browser tabs.</p>
+    <p class="pull">Real reviews from around the web. One place to see them.</p>
+  </div>
+</section>
+
+<section class="row wrap rv">
+  <div class="num">03</div>
+  <h2>Retire<br><em>the old way.</em></h2>
+  <div class="body">
+    <ul class="strike-list">
+      <li><s>Searching Google</s></li>
+      <li><s>Opening five business websites</s></li>
+      <li><s>Reading scattered reviews</s></li>
+      <li><s>Calling around, leaving voicemails</s></li>
+      <li><s>Waiting for callbacks</s></li>
+      <li><s>Trying to remember who said what</s></li>
+    </ul>
+    <p class="pull">Less searching. Less calling. Less waiting.</p>
+  </div>
+</section>
+
+<section class="quote"><div class="wrap">
+  <p class="rv">Post your project. Hear from <em>verified providers.</em> Check their reviews. <em>Get it DUN.</em></p>
+</div></section>
+
+<section class="provider" id="provider"><div class="wrap inner">
+  <div class="rv">
+    <div class="kicker">For Service Providers</div>
+    <h2>Your reputation is your next opportunity.</h2>
+    <p>You've spent years earning those Google and Facebook reviews — on DUN, they work for you from day one. No starting from zero on another platform.</p>
+    <p>See local project requests as they're posted, respond to the ones you want, and manage every conversation from one inbox instead of missed calls and voicemails.</p>
+    <a class="btn btn-ink" href="#join" style="margin-top:10px">Join as a Provider</a>
+  </div>
+  <div class="review-card rv">
+    <div class="stars">★★★★★</div>
+    <p class="txt">"Showed up on time, fair price, and the work was flawless. Third job we've hired them for."</p>
+    <div class="who">
+      <div class="avatar">G</div>
+      <div><div class="nm">Verified review</div><div class="src">via Google · shown in DUN</div></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="closing" id="join"><div class="wrap">
+  <div class="kicker rv">Build It Together</div>
+  <h2 class="rv">Stop searching.<br><em>Start doing.</em></h2>
+  <p class="rv">One place to post your project, hear from verified providers, and get it moving.</p>
+  <div class="rv"><a class="btn btn-ink" href="#">Join DUN</a></div>
+</div></section>
+
+<footer><div class="wrap"><span>© 2026 DUN</span><span>Build It Together. Get It DUN.</span></div></footer>
+
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.rv').forEach(n => io.observe(n));
+</script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DUN — Watch it get DUN.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,800;0,900;1,900&display=swap" rel="stylesheet">
+<style>
+  :root { --blue:#2E7CF6; --blue-dk:#1d5fd6; --ink:#14171D; --dim:#66707e; --bg:#EEF2F7; --line:#dde4ee; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Inter',-apple-system,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  .wrap { max-width:1120px; margin:0 auto; padding:0 28px; }
+
+  nav { padding:18px 0; }
+  nav .wrap { display:flex; justify-content:space-between; align-items:center; background:#fff; border-radius:999px; padding:12px 26px; box-shadow:0 4px 24px rgba(20,40,80,.07); }
+  .logo { font-weight:900; font-size:22px; display:flex; align-items:center; gap:8px; }
+  .logo .mark { width:30px; height:30px; border-radius:50%; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; }
+  nav a.cta { font-size:14px; font-weight:700; color:#fff; background:var(--ink); text-decoration:none; padding:10px 20px; border-radius:999px; transition:.2s; }
+  nav a.cta:hover { background:var(--blue); }
+
+  .hero { padding:70px 0 90px; }
+  .hero .grid { display:grid; grid-template-columns:1.05fr .95fr; gap:60px; align-items:center; }
+  @media (max-width:920px){ .hero .grid { grid-template-columns:1fr; gap:44px; } }
+  .pill { display:inline-flex; align-items:center; gap:8px; background:#fff; border-radius:999px; padding:8px 16px; font-size:13px; font-weight:700; color:var(--blue-dk); box-shadow:0 2px 12px rgba(20,40,80,.08); margin-bottom:24px; }
+  .pill .dot { width:8px; height:8px; border-radius:50%; background:#22c55e; animation:pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity:.35; transform:scale(.8);} }
+  h1 { font-size:clamp(40px,5.6vw,64px); font-weight:900; line-height:1.03; letter-spacing:-2.2px; margin-bottom:22px; }
+  h1 em { font-style:italic; color:var(--blue); }
+  .lede { font-size:18.5px; color:var(--dim); max-width:480px; margin-bottom:32px; }
+  .btn { display:inline-block; text-decoration:none; font-weight:800; font-size:16px; padding:16px 30px; border-radius:16px; transition:.18s; }
+  .btn-blue { background:var(--blue); color:#fff; box-shadow:0 10px 30px rgba(46,124,246,.35); }
+  .btn-blue:hover { transform:translateY(-2px); background:var(--blue-dk); }
+  .btn-white { background:#fff; color:var(--ink); margin-left:10px; box-shadow:0 4px 18px rgba(20,40,80,.08); }
+  .trust { display:flex; gap:18px; margin-top:26px; font-size:13.5px; font-weight:600; color:var(--dim); flex-wrap:wrap; }
+  .trust span::before { content:"✓ "; color:var(--blue); font-weight:800; }
+
+  /* phone demo */
+  .phone-zone { display:flex; justify-content:center; position:relative; }
+  .glow { position:absolute; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle, rgba(46,124,246,.25), transparent 65%); top:50%; left:50%; transform:translate(-50%,-50%); }
+  .phone { position:relative; width:330px; background:#0e1116; border-radius:44px; padding:12px; box-shadow:0 30px 80px rgba(15,30,60,.35); }
+  .screen { background:#F7F9FC; border-radius:34px; overflow:hidden; height:600px; display:flex; flex-direction:column; }
+  .p-head { background:#fff; padding:16px 16px 12px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:10px; }
+  .p-avatar { width:34px; height:34px; border-radius:50%; background:linear-gradient(135deg,#f59e0b,#ef4444); color:#fff; font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center; }
+  .p-head .nm { font-weight:800; font-size:14.5px; }
+  .p-head .st { font-size:11.5px; color:#22c55e; font-weight:600; }
+  .p-head .vf { margin-left:auto; font-size:11px; font-weight:700; color:var(--blue); background:rgba(46,124,246,.1); padding:4px 10px; border-radius:999px; }
+  .chat { flex:1; padding:16px 14px; display:flex; flex-direction:column; gap:10px; overflow:hidden; justify-content:flex-end; }
+  .msg { max-width:82%; padding:11px 14px; border-radius:16px; font-size:13.8px; line-height:1.45; opacity:0; transform:translateY(14px) scale(.97); transition:opacity .4s ease, transform .4s cubic-bezier(.2,.9,.3,1.1); }
+  .msg.show { opacity:1; transform:none; }
+  .me { align-self:flex-end; background:var(--blue); color:#fff; border-bottom-right-radius:4px; }
+  .them { align-self:flex-start; background:#fff; border:1px solid var(--line); border-bottom-left-radius:4px; }
+  .typing { align-self:flex-start; background:#fff; border:1px solid var(--line); border-radius:16px; padding:12px 16px; display:none; }
+  .typing.show { display:flex; gap:4px; }
+  .typing i { width:7px; height:7px; border-radius:50%; background:#c3cad6; animation:bounce 1s infinite; }
+  .typing i:nth-child(2){ animation-delay:.15s; } .typing i:nth-child(3){ animation-delay:.3s; }
+  @keyframes bounce { 30% { transform:translateY(-5px); background:var(--blue);} }
+  .offer { align-self:flex-start; width:88%; background:#fff; border:1.5px solid var(--blue); border-radius:16px; padding:14px; opacity:0; transform:translateY(14px); transition:.45s cubic-bezier(.2,.9,.3,1.1); }
+  .offer.show { opacity:1; transform:none; }
+  .offer .o-top { display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; margin-bottom:8px; }
+  .offer .stars { color:#f5a623; font-size:12px; }
+  .offer .o-src { color:var(--dim); font-weight:600; font-size:11px; }
+  .offer .o-price { display:flex; justify-content:space-between; align-items:center; background:#F2F7FF; border-radius:10px; padding:10px 12px; }
+  .offer .o-price b { font-size:20px; color:var(--blue-dk); }
+  .offer .o-price span { font-size:12px; color:var(--dim); font-weight:600; }
+  .booked { align-self:center; background:#DCFCE7; color:#15803d; font-weight:800; font-size:13px; padding:9px 18px; border-radius:999px; opacity:0; transform:scale(.85); transition:.4s cubic-bezier(.3,1.4,.4,1); }
+  .booked.show { opacity:1; transform:scale(1); }
+  .p-input { background:#fff; border-top:1px solid var(--line); padding:12px 14px; display:flex; gap:10px; align-items:center; }
+  .p-input .field { flex:1; background:#F1F4F9; border-radius:999px; padding:11px 16px; font-size:13px; color:var(--dim); white-space:nowrap; overflow:hidden; }
+  .p-input .field b { color:var(--ink); font-weight:600; }
+  .caret { display:inline-block; width:2px; height:14px; background:var(--blue); vertical-align:middle; animation:blink .8s steps(1) infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+  .p-input .send { width:38px; height:38px; border-radius:50%; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+
+  section { padding:90px 0; }
+  h2 { font-size:clamp(30px,4.4vw,44px); font-weight:900; letter-spacing:-1.4px; line-height:1.08; margin-bottom:14px; }
+  h2 em { font-style:italic; color:var(--blue); }
+  .sub { color:var(--dim); font-size:17.5px; max-width:620px; }
+
+  .feature-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:44px; }
+  @media (max-width:860px){ .feature-cards { grid-template-columns:1fr; } }
+  .fc { background:#fff; border-radius:22px; padding:30px 26px; box-shadow:0 8px 32px rgba(20,40,80,.06); transition:.25s; }
+  .fc:hover { transform:translateY(-5px); box-shadow:0 20px 44px rgba(20,40,80,.12); }
+  .fc .emoji { font-size:30px; margin-bottom:14px; display:block; }
+  .fc h3 { font-size:18.5px; font-weight:800; margin-bottom:8px; }
+  .fc p { font-size:15px; color:var(--dim); }
+  .fc .chips { display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; }
+  .fc .chip { font-size:12px; font-weight:700; background:var(--bg); border-radius:999px; padding:6px 12px; color:var(--ink); }
+  .fc .chip.star::before { content:"★ "; color:#f5a623; }
+
+  .dark-band { background:var(--ink); border-radius:28px; color:#fff; padding:60px 56px; display:grid; grid-template-columns:1.25fr .75fr; gap:48px; align-items:center; }
+  @media (max-width:860px){ .dark-band { grid-template-columns:1fr; padding:44px 30px; } }
+  .dark-band h2 { color:#fff; }
+  .dark-band p { color:#9aa5b4; font-size:16.5px; margin-bottom:22px; }
+  .inbox-card { background:#1d2430; border-radius:18px; padding:20px; }
+  .inbox-row { display:flex; align-items:center; gap:12px; padding:11px 8px; border-bottom:1px solid rgba(255,255,255,.07); font-size:13.5px; }
+  .inbox-row:last-child { border:none; }
+  .inbox-row .dot2 { width:9px; height:9px; border-radius:50%; background:var(--blue); flex-shrink:0; }
+  .inbox-row .t { color:#dfe6f0; font-weight:600; }
+  .inbox-row .s { color:#7b8595; font-size:12px; margin-left:auto; white-space:nowrap; }
+
+  .closing { text-align:center; padding:100px 0 120px; }
+  .closing h2 { font-size:clamp(36px,6vw,58px); }
+  .closing .tag { font-size:19px; font-weight:900; font-style:italic; color:var(--blue-dk); margin:16px 0 32px; }
+
+  footer { text-align:center; padding:30px 0; font-size:13px; color:var(--dim); }
+
+  .rv { opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.3,1); }
+  .rv.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){ .rv { opacity:1; transform:none; } }
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="logo"><span class="mark">D</span>DUN.</div>
+  <a class="cta" href="#join">Join DUN</a>
+</div></nav>
+
+<header class="hero"><div class="wrap grid">
+  <div>
+    <div class="pill"><span class="dot"></span> Providers responding now</div>
+    <h1>Post it once.<br>Watch it get <em>DUN.</em></h1>
+    <p class="lede">Verified local providers respond to you — with real answers, real availability, and their real Google and Facebook reviews attached. This is what it looks like. →</p>
+    <div>
+      <a class="btn btn-blue" href="#join">Post Your Project</a>
+      <a class="btn btn-white" href="#providers">Join as a Provider</a>
+    </div>
+    <div class="trust">
+      <span>Verified providers</span>
+      <span>Real Google &amp; Facebook reviews</span>
+      <span>No phone calls</span>
+    </div>
+  </div>
+
+  <div class="phone-zone">
+    <div class="glow"></div>
+    <div class="phone"><div class="screen">
+      <div class="p-head">
+        <div class="p-avatar">T</div>
+        <div><div class="nm">Tow Buddies</div><div class="st">● Active now</div></div>
+        <div class="vf">✓ Verified</div>
+      </div>
+      <div class="chat" id="chat">
+        <div class="msg me" id="m1">My car broke down on I-75. Need a tow to Ferndale ASAP 🙏</div>
+        <div class="typing" id="ty"><i></i><i></i><i></i></div>
+        <div class="msg them" id="m2">Hey! I can be there by 2 PM. Where exactly are you stopped?</div>
+        <div class="offer" id="of">
+          <div class="o-top">
+            <span>Tow Buddies</span>
+            <span class="stars">★★★★★</span>
+            <span class="o-src">4.9 · 320 Google reviews</span>
+          </div>
+          <div class="o-price"><span>Estimated total<br><b>$80</b></span><span>Confirmed on-site.<br>Nothing to sign until then.</span></div>
+        </div>
+        <div class="msg me" id="m3">Perfect — see you at 2!</div>
+        <div class="booked" id="bk">✓ Booked · Getting it DUN</div>
+      </div>
+      <div class="p-input">
+        <div class="field" id="fld"><span class="caret"></span></div>
+        <div class="send">➤</div>
+      </div>
+    </div></div>
+  </div>
+</div></header>
+
+<section style="padding-top:40px"><div class="wrap">
+  <h2 class="rv">Everything between<br>“I need this” and <em>“it's done.”</em></h2>
+  <div class="feature-cards">
+    <div class="fc rv">
+      <span class="emoji">📣</span>
+      <h3>Post it once</h3>
+      <p>Describe your project, add a photo, send it out. Verified providers near you respond with answers and availability — you never call around.</p>
+      <div class="chips"><span class="chip">One post</span><span class="chip">Ten fewer calls</span></div>
+    </div>
+    <div class="fc rv" style="transition-delay:.08s">
+      <span class="emoji">🔎</span>
+      <h3>Check them out — no tab-juggling</h3>
+      <p>Every provider's Google Business page, Facebook page, and real reviews show right in DUN. Nothing cherry-picked, nothing to cross-check.</p>
+      <div class="chips"><span class="chip star">Google reviews</span><span class="chip star">Facebook reviews</span><span class="chip">✓ Verified</span></div>
+    </div>
+    <div class="fc rv" style="transition-delay:.16s">
+      <span class="emoji">💬</span>
+      <h3>One conversation to done</h3>
+      <p>Ask questions, agree on details, set the time — all in the same thread. No voicemails, no “who said what.”</p>
+      <div class="chips"><span class="chip">In-app messaging</span><span class="chip">Organized</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="providers" style="padding-top:0"><div class="wrap">
+  <div class="dark-band rv">
+    <div>
+      <h2>Your reputation is your<br><em style="color:#6EA8FF">next opportunity.</em></h2>
+      <p>You've spent years earning those Google and Facebook reviews — on DUN they work for you from day one. See local requests as they post, respond to the ones you want, run everything from one inbox.</p>
+      <a class="btn btn-blue" href="#join">Join as a Provider</a>
+    </div>
+    <div class="inbox-card">
+      <div class="inbox-row"><span class="dot2"></span><span class="t">Tow needed — I-75 &amp; 9 Mile</span><span class="s">2 min ago</span></div>
+      <div class="inbox-row"><span class="dot2"></span><span class="t">Kitchen repaint — Chesterfield</span><span class="s">14 min ago</span></div>
+      <div class="inbox-row"><span class="dot2"></span><span class="t">Tree removal — backyard oak</span><span class="s">31 min ago</span></div>
+      <div class="inbox-row"><span class="dot2" style="background:#3a4453"></span><span class="t" style="color:#7b8595">Deck staining — responded ✓</span><span class="s">1 hr ago</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="closing" id="join"><div class="wrap">
+  <h2 class="rv">Stop searching. <em>Start doing.</em></h2>
+  <p class="tag rv">Build It Together. Get It DUN.</p>
+  <div class="rv"><a class="btn btn-blue" href="#">Join DUN</a></div>
+</div></section>
+
+<footer>© 2026 DUN · Build It Together</footer>
+
+<script>
+  // scroll reveals
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+  document.querySelectorAll('.rv').forEach(n => io.observe(n));
+
+  // self-playing chat demo (loops)
+  const $ = id => document.getElementById(id);
+  const typeInto = (el, text, done) => {
+    el.innerHTML = '<b></b><span class="caret"></span>';
+    const b = el.querySelector('b');
+    let i = 0;
+    const t = setInterval(() => {
+      b.textContent = text.slice(0, ++i);
+      if (i >= text.length) { clearInterval(t); done && done(); }
+    }, 38);
+  };
+  function playDemo() {
+    ['m1','m2','m3'].forEach(id => $(id).classList.remove('show'));
+    ['of','bk'].forEach(id => $(id).classList.remove('show'));
+    $('ty').classList.remove('show');
+    typeInto($('fld'), 'My car broke down on I-75…', () => {
+      setTimeout(() => { $('fld').innerHTML = '<span class="caret"></span>'; $('m1').classList.add('show'); }, 400);
+      setTimeout(() => $('ty').classList.add('show'), 1100);
+      setTimeout(() => { $('ty').classList.remove('show'); $('m2').classList.add('show'); }, 2600);
+      setTimeout(() => $('of').classList.add('show'), 3500);
+      setTimeout(() => $('m3').classList.add('show'), 4600);
+      setTimeout(() => $('bk').classList.add('show'), 5400);
+      setTimeout(playDemo, 9000);
+    });
+  }
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { ['m1','m2','m3','of','bk'].forEach(id => $(id).classList.add('show')); }
+  else playDemo();
+</script>
+</body>
+</html>
